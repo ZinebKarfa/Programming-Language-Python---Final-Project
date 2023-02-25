@@ -1,0 +1,59 @@
+{% extends 'index.html' %}
+
+{% block content %}
+
+    
+<div class="container">
+<h3 class="">Customers</h3>
+<div class="table-responsive">
+  <table class="table">
+    <thead class="thead-dark">
+      <h3><a href="{% url 'clientCreate' %}" class="btn btn-success">Add customer</a></h3>
+      <tr>
+        <th scope="col">First name</th>
+        <th scope="col">Last name</th>
+        <th scope="col">Age</th>
+        <th scope="col">Phone</th>
+        <th scope="col">Email</th>
+        <th scope="col">Details</th>
+        <th scope="col">Edit</th>
+        <th scope="col">Delete</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for item in clients %}
+      <tr>
+        <td>{{item.firstName}}</td>
+        <td>{{item.lastName}}</td>
+        <td>{{item.age}}</td>
+        <td>{{item.phone}}</td>
+        <td>{{item.email}}</td>
+        <td><a class="badge badge-info" href="{% url 'client' item.id %}">See details</a></td>
+        <td><a class="btn btn-secondary" href="{% url 'clientupdate' item.id %}">Edit</a></td>
+        <td><a class="btn btn-danger" href="{% url 'clientdelete' item.id %}">Delete</button></td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+  <div class="pagination">
+    <span class="step-links">
+        {% if clients.has_previous %}
+            <a class=" text-light" href="?page={{ clients.previous_page_number }}">{{ clients.previous_page_number }}</a>
+        {% endif %}
+  
+        <span class="current-page text-dark">
+            {{ clients.number }}
+        </span>
+  
+        {% if clients.has_next %}
+            <a class=" text-light" href="?page={{ clients.next_page_number }}">{{ clients.next_page_number }}</a>
+        {% endif %}
+    </span>
+  </div>
+
+</div>
+
+    
+   
+{% endblock %}

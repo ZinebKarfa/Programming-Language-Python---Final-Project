@@ -1,0 +1,43 @@
+{% extends 'index.html' %}
+
+{% block content %}
+
+
+
+
+<div class="container" >
+    <div class="d-flex flex-column align-items-center">
+        <h3 class="text-white">Add New User</h3>
+<form method="POST">
+    {% csrf_token %}
+   <!-- {{form.as_p}} -->
+   <div class="form-group">
+    <label>{{form.username.label}}</label>
+    {{form.username}}
+  </div>
+  <div class="form-group">
+    <label>{{form.email.label}}</label>
+    {{form.email}}
+  </div>
+  <div class="form-group">
+    <label>{{form.password1.label}}</label>
+    <br>
+    {{form.password1}}
+  </div>
+  <div class="form-group">
+    <label>{{form.password2.label}}</label>
+    <br>
+    {{form.password2}}
+  </div>
+    <br>
+    <span class="text-danger">{{form.errors}}</span>
+    <button type="submit" class="btn btn-primary" style="min-width: 25vw;">Submit</button>
+    <br>
+    <a class="text-white" href="{% url 'login' %}" >Go to login page</a>
+</form>
+
+</div>
+</div>
+
+
+{% endblock %}

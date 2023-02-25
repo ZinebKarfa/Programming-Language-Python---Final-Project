@@ -1,0 +1,72 @@
+{% extends 'index.html' %}
+
+{% block content %}
+<div class="container">
+<div class="mt-5 mb-2 d-flex justify-content-center">
+    <ul class="list-group ">
+        <li class="list-group-item active">Name : {{client.firstName}} {{client.lastName}}</li>
+        <li class="list-group-item"> Age : {{client.age}}</li>
+        <li class="list-group-item">Phone : {{client.phone}}</li>
+        <li class="list-group-item">Email : {{client.email}}</li>
+    </ul>
+    
+</div>
+<div class="table-responsive">
+        <table class="table table-hover">
+        <thead class="bg-secondary text-light">
+          <div>
+            <a href="{% url 'client' client.id %}" class="btn btn-light mb-2">Show all credits</a>
+            <a href="{% url 'clientpaid' client.id %}" class="btn btn-primary mb-2">Show only paid credits</a>
+            <a href="{% url 'clientunpaid' client.id  %}" class="btn btn-danger mb-2">Show only non-paid credits</a>
+          </div>
+          <tr>
+            <th scope="col">Credit ID</th>
+            <th scope="col">Name</th>
+            <th scope="col">Product</th>
+            <th scope="col">Price</th>
+            <th scope="col">Date</th>
+            <th scope="col">Status</th>
+            <th scope="col">Pay</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for item in credits %}
+          <tr>
+            <td>{{item.id}}</td>
+            <td>{{item.client.lastName}} {{item.client.firstName}}</td>
+            <td>{{item.produit}}</td>
+            <td>{{item.produit.price}}</td>
+            <td>{{item.date_created|date:"d M Y"}}</td>
+            <td>{{item.status}}</td>
+            {% if item.status == 'unpaid' %}
+            <td><a class="btn btn-secondary" href="{% url 'creditupdatestatus' item.id %}">Pay</a></td>
+            {% else %}
+            <td></td>
+            {% endif %}
+            <!-- <td><a class="btn btn-secondary" href="{% url 'creditupdate' item.id %}">payé</a></td> -->
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+</div>
+
+<div class="pagination">
+    <span class="step-links">
+        {% if credits.has_previous %}
+            <a class=" text-light" href="?page={{ credits.previous_page_number }}">{{ credits.previous_page_number }}</a>
+        {% endif %}
+  
+        <span class="current-page text-dark">
+            {{ credits.number }}
+        </span>
+  
+        {% if credits.has_next %}
+            <a class=" text-light" href="?page={{ credits.next_page_number }}">{{ credits.next_page_number }}</a>
+        {% endif %}
+    </span>
+  </div>
+</div>
+
+
+
+{% endblock %}

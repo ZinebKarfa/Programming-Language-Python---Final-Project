@@ -1,0 +1,29 @@
+{% extends 'index.html' %}
+
+{% block content %}
+
+
+<div class="container d-flex flex-column align-items-center mt-2">
+  <h3>Pay credit</h3>
+<div class="card" style="width: 18rem;">
+  <div class="card-body">
+    <h5 class="card-title">{{data.clientFirstname}} {{data.clientLastname}} </h5>
+    <h6 class="card-subtitle mb-2 text-muted">{{data.creditdate}}</h6>
+    <p class="card-text">Can you confirm that this product  was paid ? : <span class="text-danger">{{data.produitname}}</span></p>
+  </div>
+</div>
+<form method="POST">
+  {% csrf_token %}
+  
+  <div class="form-group">
+    <div>{{ form.status }}</div>
+  </div>
+  <button type="submit" class="btn btn-primary">Submit</button>
+  <a class="btn btn-secondary" href="{% url 'client' data.clientid %}">Cancel</a>
+</form>
+
+</div>
+
+
+
+{% endblock %}

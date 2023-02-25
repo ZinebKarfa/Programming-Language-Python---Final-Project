@@ -1,0 +1,25 @@
+{% extends 'index.html' %}
+
+{% block content %}
+   
+<div class="d-flex flex-column align-items-center justify-content-center" style="background-image: url('static/img/home.jpg');  
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  min-height: 100vh;
+">
+    <h3 class="text-light text-center">Hello world !</h3>
+    <h4 class="text-info text-center">What can I do for you ?</h4>
+    <div class="d-flex flex-column flex-md-row justify-content-center mt-5">
+        <a class="btn btn-info py-3 border border-light" href="{% url 'clients' %}">Add new customer</a>
+    <a class="btn btn-dark mt-5 mt-md-0 ml-md-5 py-3 border border-light" href="{% url 'produits' %}">Add new products</a>
+    <a class="btn btn-light mt-5 mt-md-0 ml-md-5 py-3 border border-primary" href="{% url 'credits' %}">Manage credits</a>
+    </div>
+    
+</div>
+
+{% endblock %}
+
+
+
+<!-- class="d-flex justify-content-center align-items-center"  -->

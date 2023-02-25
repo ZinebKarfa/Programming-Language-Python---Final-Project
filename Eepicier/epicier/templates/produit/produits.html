@@ -1,0 +1,55 @@
+{% extends 'index.html' %}
+
+{% block content %}
+
+    
+<div class="container">
+<h3 class="">produits</h3>
+<div class="table-responsive">
+  <table class="table">
+    <thead class="bg-secondary text-light">
+      <h3><a href="{% url 'produitCreate' %}" class="btn btn-success">Add product</a></h3>
+      <tr>
+        <th scope="col">Title</th>
+        <th scope="col">Price</th>
+        <th scope="col">Description</th>
+        <th scope="col">Category</th>
+        <th scope="col">Edit</th>
+        <th scope="col">Delete</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for item in produits %}
+      <tr>
+        <td>{{item.title}}</td>
+        <td>{{item.price}}</td>
+        <td>{{item.description}}</td>
+        <td>{{item.category}}</td>
+        <td><a class="btn btn-secondary" href="{% url 'produitupdate' item.id %}">Edit</a></td>
+        <td><a class="btn btn-danger" href="{% url 'produitdelete' item.id %}">Delete</button></td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+  <div class="pagination">
+    <span class="step-links">
+        {% if produits.has_previous %}
+            <a class=" text-light" href="?page={{ produits.previous_page_number }}">{{ produits.previous_page_number }}</a>
+        {% endif %}
+  
+        <span class="current-page text-dark">
+            {{ produits.number }}
+        </span>
+  
+        {% if produits.has_next %}
+            <a class=" text-light" href="?page={{ produits.next_page_number }}">{{ produits.next_page_number }}</a>
+        {% endif %}
+    </span>
+  </div>
+
+</div>
+
+    
+   
+{% endblock %}

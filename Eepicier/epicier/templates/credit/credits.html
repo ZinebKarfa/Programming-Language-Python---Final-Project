@@ -1,0 +1,69 @@
+{% extends 'index.html' %}
+
+{% block content %}
+
+    
+<div class="container ">
+<h3 class="">Credit Management</h3>
+<div class="table-responsive">
+<table class="table table-hover">
+    <thead class="bg-secondary text-light">
+      <a href="{% url 'creditCreate' %}" class="btn btn-success mb-2">Add credit</a>
+      <div>
+        <a href="{% url 'credits' %}" class="btn btn-light mb-2">Show all credits</a>
+        <a href="{% url 'creditunpaid' %}" class="btn btn-secondary mb-2">Show only non-paid credits</a>
+        <a href="{% url 'creditpaid' %}" class="btn btn-primary mb-2">Show only paid credits</a>
+      </div>
+      <tr>
+        <th scope="col">Credit ID</th>
+        <th scope="col">Customer</th>
+        <th scope="col">Product</th>
+        <th scope="col">Price</th>
+        <th scope="col">Date</th>
+        <th scope="col">Status</th>
+        <th scope="col">Edit</th>
+        <th scope="col">Delete</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for item in credits %}
+      <tr>
+        <td>{{item.id}}</td>
+        <td>{{item.client.lastName}} {{item.client.firstName}}</td>
+        <td>{{item.produit}}</td>
+        <td>{{item.produit.price}}</td>
+        <td>{{item.date_created|date:"d M Y"}}</td>
+        <td>{{item.status}}</td>
+        <td><a class="btn btn-secondary" href="{% url 'creditupdate' item.id %}">Edit</a></td>
+        <td><a class="btn btn-danger" href="{% url 'creditdelete' item.id %}">Delete</button></td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+<div class="d-flex text-center text-dark alert alert-success justify-content-center" role="alert">
+  <div class="ml-2">Non-paid credits : <span class="text-primary">{{ data.unpaid_sum }}</span></div>
+  <div class="ml-2">Paid credits : <span class="text-primary">{{ data.paid_sum }}</span></div>
+  <div class="ml-2">Total : <span class="text-primary">{{ data.total_sum }}</span></div>
+</div>
+  <div class="pagination">
+    <span class="step-links">
+        {% if credits.has_previous %}
+            <a class=" text-light" href="?page={{ credits.previous_page_number }}">{{ credits.previous_page_number }}</a>
+        {% endif %}
+  
+        <span class="current-page text-dark">
+            {{ credits.number }}
+        </span>
+  
+        {% if credits.has_next %}
+            <a class=" text-light" href="?page={{ credits.next_page_number }}">{{ credits.next_page_number }}</a>
+        {% endif %}
+    </span>
+  </div>
+
+</div>
+
+    
+   
+{% endblock %}
